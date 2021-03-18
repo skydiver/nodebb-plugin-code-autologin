@@ -42,5 +42,8 @@
   "nbbpm": {
     "compatibility": "^1.15.0"
   },
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
 }
