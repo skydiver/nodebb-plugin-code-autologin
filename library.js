@@ -16,14 +16,19 @@ plugin.init = async (params) => {
 	 *
 	 * Other helpers include `setupAdminPageRoute` and `setupAPIRoute`
 	 * */
-	routeHelpers.setupPageRoute(router, '/quickstart', middleware, [(req, res, next) => {
-		winston.info(`[plugins/quickstart] In middleware. This argument can be either a single middleware or an array of middlewares`);
+	routeHelpers.setupPageRoute(router, '/autologin/:code', middleware, [(req, res, next) => {
+		const { code } = req.params;
+		console.log({code})
+		// winston.info(`[plugins/quickstart] In middleware. This argument can be either a single middleware or an array of middlewares`);
 		setImmediate(next);
 	}], (req, res) => {
 		winston.info(`[plugins/quickstart] Navigated to ${nconf.get('relative_path')}/quickstart`);
 		res.sendStatus(200);	// replace this with res.render('templateName');
 	});
-	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/quickstart', middleware, [], controllers.renderAdminPage);
+
+
+
+	// routeHelpers.setupAdminPageRoute(router, '/admin/plugins/quickstart', middleware, [], controllers.renderAdminPage);
 };
 
 /**
@@ -51,22 +56,22 @@ plugin.init = async (params) => {
  *		}
  *	}
  */
-plugin.addRoutes = async ({ router, middleware, helpers }) => {
-	router.get('/quickstart/:param1', middleware.authenticate, (req, res) => {
-		helpers.formatApiResponse(200, res, {
-			foobar: req.params.param1,
-		});
-	});
-};
+// plugin.addRoutes = async ({ router, middleware, helpers }) => {
+// 	router.get('/quickstart/:param1', middleware.authenticate, (req, res) => {
+// 		helpers.formatApiResponse(200, res, {
+// 			foobar: req.params.param1,
+// 		});
+// 	});
+// };
 
-plugin.addAdminNavigation = function (header, callback) {
-	header.plugins.push({
-		route: '/plugins/quickstart',
-		icon: 'fa-tint',
-		name: 'Quickstart',
-	});
+// plugin.addAdminNavigation = function (header, callback) {
+// 	header.plugins.push({
+// 		route: '/plugins/quickstart',
+// 		icon: 'fa-tint',
+// 		name: 'Quickstart',
+// 	});
 
-	callback(null, header);
-};
+// 	callback(null, header);
+// };
 
 module.exports = plugin;
