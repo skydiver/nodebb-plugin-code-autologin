@@ -3,6 +3,8 @@
 const nconf = require.main.require('nconf');
 const winston = require.main.require('winston');
 const controllers = require('./lib/controllers');
+const user = require.main.require('./src/user');
+var authentication = require.main.require('./src/controllers/authentication.js');
 
 const plugin = {};
 
@@ -18,12 +20,39 @@ plugin.init = async (params) => {
 	 * */
 	routeHelpers.setupPageRoute(router, '/autologin/:code', middleware, [(req, res, next) => {
 		const { code } = req.params;
-		console.log({code})
+
+		user.getUidByEmail("USE CUSTOM EMAIL", function(err, uid) {
+
+			if (!uid) {
+				return res.sendStatus(404);	// replace this with res.render('templateName');
+			}
+
+			winston.info("Secretly logging uid " + uid + " for session " + req.sessionID);
+			authentication.doLogin(req, uid, function(err) {
+				if(err) {
+					res.statusCode = 500;
+					res.end("Error: " + err);
+					return winston.error("Could not log in: " + err);
+				}
+				winston.info("Complete");
+				res.setHeader("Location", "/");
+				res.statusCode = 302;
+				res.end();
+			});
+		});
+
+
+
+
+
+
+
+
 		// winston.info(`[plugins/quickstart] In middleware. This argument can be either a single middleware or an array of middlewares`);
 		setImmediate(next);
 	}], (req, res) => {
 		winston.info(`[plugins/quickstart] Navigated to ${nconf.get('relative_path')}/quickstart`);
-		res.sendStatus(200);	// replace this with res.render('templateName');
+		// res.sendStatus(200);	// replace this with res.render('templateName');
 	});
 
 
