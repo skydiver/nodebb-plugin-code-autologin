@@ -14,7 +14,7 @@ plugin.init = async (params) => {
   const { router, middleware } = params;
   const routeHelpers = require.main.require('./src/routes/helpers');
 
-  /** ***************************************************************************
+  /*****************************************************************************
    *  AUTOLOGIN ROUTE
    *  Converts a CODE to a EMAIL by calling a custom endpoint
    *************************************************************************** */
@@ -52,9 +52,10 @@ plugin.init = async (params) => {
     // res.sendStatus(200);
   });
 
-
-
-  // routeHelpers.setupAdminPageRoute(router, '/admin/plugins/quickstart', middleware, [], controllers.renderAdminPage);
+  /*****************************************************************************
+   *  ADMIN PAGE FOR PLUGIN SETUP
+   *************************************************************************** */
+  routeHelpers.setupAdminPageRoute(router, '/admin/plugins/code-autologin', middleware, [], controllers.renderAdminPage);
 };
 
 /**
@@ -90,14 +91,14 @@ plugin.init = async (params) => {
 // 	});
 // };
 
-// plugin.addAdminNavigation = function (header, callback) {
-// 	header.plugins.push({
-// 		route: '/plugins/quickstart',
-// 		icon: 'fa-tint',
-// 		name: 'Quickstart',
-// 	});
+plugin.addAdminNavigation = function (header, callback) {
+  header.plugins.push({
+    route: '/plugins/code-autologin',
+    icon: 'fa-unlock',
+    name: 'Code Autologin',
+  });
 
-// 	callback(null, header);
-// };
+  callback(null, header);
+};
 
 module.exports = plugin;
