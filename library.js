@@ -1,5 +1,7 @@
 'use strict';
 
+const axios = require('axios');
+
 const nconf = require.main.require('nconf');
 const winston = require.main.require('winston');
 const controllers = require('./lib/controllers');
@@ -12,32 +14,34 @@ plugin.init = async (params) => {
   const { router, middleware } = params;
   const routeHelpers = require.main.require('./src/routes/helpers');
 
-  /*****************************************************************************
+  /** ***************************************************************************
    *  AUTOLOGIN ROUTE
    *  Converts a CODE to a EMAIL by calling a custom endpoint
-   ****************************************************************************/
-  routeHelpers.setupPageRoute(router, '/autologin/:code', middleware, [(req, res, next) => {
+   *************************************************************************** */
+  routeHelpers.setupPageRoute(router, '/autologin/:code', middleware, [async (req, res, next) => {
     const { code } = req.params;
 
-    const email = "USE CUSTOM EMAIL";
+    const email = 'USE CUSTOM EMAIL';
 
-    user.getUidByEmail(email, function(err, uid) {
+    const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
+    console.log(data);
 
+    user.getUidByEmail(email, function (err, uid) {
       if (!uid) {
         return res.sendStatus(404);
       }
 
-      winston.info("Secretly logging uid " + uid + " for session " + req.sessionID);
+      winston.info('Secretly logging uid ' + uid + ' for session ' + req.sessionID);
 
-      authentication.doLogin(req, uid, function(err) {
-        if(err) {
+      authentication.doLogin(req, uid, function (err) {
+        if (err) {
           res.statusCode = 500;
-          res.end("Error: " + err);
-          return winston.error("Could not log in: " + err);
+          res.end('Error: ' + err);
+          return winston.error('Could not log in: ' + err);
         }
 
         winston.info(`Successfully logged uid ${uid}, redirect to home`);
-        res.setHeader("Location", "/");
+        res.setHeader('Location', '/');
         res.statusCode = 302;
         res.end();
       });
