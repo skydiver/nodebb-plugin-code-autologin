@@ -6,7 +6,7 @@ const assert = require('assert');
 
 const db = require.main.require('./test/mocks/databasemock');
 
-describe('nodebb-plugin-quickstart', function () {
+describe('nodebb-plugin-code-autologin', function () {
 	it('should pass', function (done) {
 		const actual = 'value';
 		const expected = 'value';

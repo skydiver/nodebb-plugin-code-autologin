@@ -1,18 +1,23 @@
 {
-  "name": "nodebb-plugin-quickstart",
+  "name": "nodebb-plugin-code-autologin",
   "version": "0.4.1",
   "description": "A starter kit for quickly creating NodeBB plugins",
-  "main": "library.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/psychobunny/nodebb-plugin-quickstart"
-  },
   "keywords": [
     "nodebb",
     "plugin",
     "quickstart",
     "shell"
   ],
+  "bugs": {
+    "url": "https://github.com/psychobunny/nodebb-plugin-code-autologin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psychobunny/nodebb-plugin-code-autologin"
+  },
+  "license": "MIT",
+  "author": "Martín M.",
+  "main": "library.js",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
@@ -25,18 +30,6 @@
       "git add"
     ]
   },
-  "author": {
-    "name": "psychobunny",
-    "email": "psycho.bunny@hotmail.com"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/psychobunny/nodebb-plugin-quickstart/issues"
-  },
-  "readmeFilename": "README.md",
-  "nbbpm": {
-    "compatibility": "^1.15.0"
-  },
   "devDependencies": {
     "@commitlint/cli": "12.0.1",
     "@commitlint/config-angular": "12.0.1",
@@ -45,5 +38,9 @@
     "eslint-plugin-import": "2.22.1",
     "husky": "5.1.3",
     "lint-staged": "10.5.4"
-  }
+  },
+  "nbbpm": {
+    "compatibility": "^1.15.0"
+  },
+  "readmeFilename": "README.md"
 }

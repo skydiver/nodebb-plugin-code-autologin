@@ -1,6 +1,6 @@
 {
-	"id": "nodebb-plugin-quickstart",
-	"url": "https://github.com/NodeBB/nodebb-plugin-quickstart",
+	"id": "nodebb-plugin-code-autologin",
+	"url": "https://github.com/skydiver/nodebb-plugin-code-autologin",
 	"library": "./library.js",
 	"hooks": [
 		{
