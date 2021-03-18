@@ -1,4 +1,4 @@
-<form role="form" class="quickstart-settings">
+<form role="form" class="code-autologin-settings">
   <div class="row">
     <div class="col-sm-2 col-xs-12 settings-header">General</div>
     <div class="col-sm-10 col-xs-12">

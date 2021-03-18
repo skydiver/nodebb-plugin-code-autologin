@@ -5,8 +5,7 @@
   "keywords": [
     "nodebb",
     "plugin",
-    "quickstart",
-    "shell"
+    "code-autologin"
   ],
   "bugs": {
     "url": "https://github.com/psychobunny/nodebb-plugin-code-autologin/issues"
