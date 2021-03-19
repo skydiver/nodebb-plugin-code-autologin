@@ -1,18 +1,19 @@
 {
   "name": "nodebb-plugin-code-autologin",
-  "version": "0.4.1",
-  "description": "A starter kit for quickly creating NodeBB plugins",
+  "version": "1.0.0",
+  "description": "Autologin for NodeBB validating a code with an endpoint",
   "keywords": [
     "nodebb",
     "plugin",
+    "autologin",
     "code-autologin"
   ],
   "bugs": {
-    "url": "https://github.com/psychobunny/nodebb-plugin-code-autologin/issues"
+    "url": "https://github.com/skydiver/nodebb-plugin-code-autologin/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/psychobunny/nodebb-plugin-code-autologin"
+    "url": "https://github.com/skydiver/nodebb-plugin-code-autologin"
   },
   "license": "MIT",
   "author": "Martín M.",
@@ -29,6 +30,9 @@
       "git add"
     ]
   },
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
   "devDependencies": {
     "@commitlint/cli": "12.0.1",
     "@commitlint/config-angular": "12.0.1",
@@ -41,8 +45,5 @@
   "nbbpm": {
     "compatibility": "^1.15.0"
   },
-  "readmeFilename": "README.md",
-  "dependencies": {
-    "axios": "^0.21.1"
-  }
+  "readmeFilename": "README.md"
 }
