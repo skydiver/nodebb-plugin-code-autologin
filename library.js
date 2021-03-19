@@ -40,7 +40,12 @@ const autologinRoute = async (req, res, next) => {
   /** CALL ENDPOINT WITH CODE AND EXPECT AN EXISTING EMAIL ADDRESS */
   const { data } = await axios.get(`${endpoint}?code=${code}`);
 
-  const email = 'USE CUSTOM EMAIL';
+  const { status, email } = data;
+
+  /** CHECK FOR A VALID RESPONSE */
+  if (status !== 'ok' || email === '') {
+    return res.sendStatus(404);
+  }
 
   /** TRIES TO AUTHENTICATE RETURNED EMAIL */
   user.getUidByEmail(email, function (err, uid) {
