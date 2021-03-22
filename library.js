@@ -37,10 +37,17 @@ const autologinRoute = async (req, res, next) => {
   const { code } = req.params;
   const endpoint = settings['endpoint'];
 
-  /** CALL ENDPOINT WITH CODE AND EXPECT AN EXISTING EMAIL ADDRESS */
-  const { data } = await axios.get(`${endpoint}?code=${code}`);
+  let status;
+  let email;
 
-  const { status, email } = data;
+  /** CALL ENDPOINT WITH CODE AND EXPECT AN EXISTING EMAIL ADDRESS */
+  try {
+      const { data } = await axios.get(`${endpoint}?code=${code}`);
+      ({ status, email } = data);
+  } catch (error) {
+    winston.info(`Autologin: request failed using code ${code}`);
+    return res.sendStatus(404);
+  }
 
   /** CHECK FOR A VALID RESPONSE */
   if (status !== 'ok' || email === '') {
@@ -53,16 +60,14 @@ const autologinRoute = async (req, res, next) => {
       return res.sendStatus(404);
     }
 
-    winston.info('Secretly logging uid ' + uid + ' for session ' + req.sessionID);
-
     authentication.doLogin(req, uid, function (err) {
       if (err) {
         res.statusCode = 500;
         res.end('Error: ' + err);
-        return winston.error('Could not log in: ' + err);
+        return winston.error(`Autologin: Could not log in: ${err}`);
       }
 
-      winston.info(`Successfully logged uid ${uid}, redirect to home`);
+      winston.info(`Autologin: successfully logged uid ${uid}, redirect to home`);
       res.setHeader('Location', '/');
       res.statusCode = 302;
       res.end();

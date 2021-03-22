@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-code-autologin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Autologin for NodeBB validating a code with an endpoint",
   "keywords": [
     "nodebb",
